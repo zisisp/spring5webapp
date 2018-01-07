@@ -1,36 +1,41 @@
-package gr.zed.spring5webapp;
+package gr.zed.spring5webapp.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-import java.util.Set;
 
-@Data
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Author {
+public class Publisher {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String address;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books;
+    public Publisher(String name,String address) {
+        this.name =name;
+        this.address=address;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Author author = (Author) o;
-        return Objects.equals(id, author.id);
+        Publisher publisher = (Publisher) o;
+        return Objects.equals(id, publisher.id);
     }
 
     @Override
